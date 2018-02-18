@@ -1,0 +1,29 @@
+repositories {
+    mavenLocal()
+    jcenter()
+}
+
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+    }
+    dependencies {
+        classpath('net.serenity-bdd:serenity-gradle-plugin:1.1.1')
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'net.serenity-bdd.aggregator'
+
+dependencies {
+    compile 'junit:junit:4.12'
+    compile 'net.serenity-bdd:serenity-core:1.1.1'
+    compile 'net.serenity-bdd:serenity-junit:1.1.1'
+    compile 'org.assertj:assertj-core:3.4+'
+    compile 'org.slf4j:slf4j-simple:1.7+'
+    compile group: 'com.github.javafaker', name: 'javafaker', version: '0.14'
+}
+gradle.startParameter.continueOnFailure = true

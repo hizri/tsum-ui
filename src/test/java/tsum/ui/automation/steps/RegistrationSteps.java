@@ -11,7 +11,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegistrationSteps extends BaseSteps {
 
-    private HomePage homePage;
     private SignUpPopup signUpPopup;
     private ProfilePage profilePage;
     private RegistrationPage registrationPage;

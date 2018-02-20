@@ -17,7 +17,7 @@ public class BaseFactory {
         RegistrationModel data = new RegistrationModel();
         UUID uuid = UUID.randomUUID();
 
-        data.setName(faker.name().firstName());
+        data.setName(String.format("%s ' - ' %s", faker.name().firstName(), faker.name().lastName()));
         data.setGender(genders.get(random.nextInt(genders.size())));
         data.setBirthDate(faker.date().between(faker.date().past(30000, TimeUnit.DAYS), new Date()));
         data.seteMail(faker.internet().safeEmailAddress());

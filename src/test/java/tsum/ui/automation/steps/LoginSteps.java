@@ -11,10 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class LoginSteps extends BaseSteps {
 
-    private HomePage homePage;
     private SignUpPopup signUpPopup;
-    private ProfilePage profilePage;
-    private LoginPage loginPage;
 
     @Step
     public void fill_login_form(LoginModel data) {

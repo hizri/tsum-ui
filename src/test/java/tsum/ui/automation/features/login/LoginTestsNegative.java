@@ -14,7 +14,7 @@ public class LoginTestsNegative extends BaseTest {
     private LoginSteps loginSteps;
 
     @Before
-    public void open_registration_form() {
+    public void open_login_popup() {
         loginSteps.open_signup_popup();
     }
 

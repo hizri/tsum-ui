@@ -14,7 +14,7 @@ public class AppearanceTests extends BaseTest {
     private RegistrationSteps registrationSteps;
 
     @Before
-    public void open_sign_up_popup() {
+    public void open_home_page() {
         baseSteps.open_home_page();
     }
 

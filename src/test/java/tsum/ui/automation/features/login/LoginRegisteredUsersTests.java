@@ -20,7 +20,8 @@ public class LoginRegisteredUsersTests extends BaseTest {
     private RegistrationSteps registrationSteps;
 
     @Before
-    public void open_registration_form() {
+    public void prepare_created_account() {
+        createdAccount = BaseFactory.randomRegistrationData();
         registrationSteps.open_registration_page();
         createdAccount.setBirthDate(null);
         registrationSteps.register_new_user_on_page(createdAccount);

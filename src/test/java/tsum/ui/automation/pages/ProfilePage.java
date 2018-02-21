@@ -4,9 +4,9 @@ import org.openqa.selenium.By;
 import tsum.ui.automation.basics.BasePage;
 import tsum.ui.automation.models.RegistrationModel;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class ProfilePage extends BasePage {
@@ -16,27 +16,26 @@ public class ProfilePage extends BasePage {
         return this.getCurrentUrl().equalsIgnoreCase("https://www.tsum.ru/personal/profile/");
     }
 
-    public boolean matchModelData(RegistrationModel data) {
-        List<Boolean> matchResult = new ArrayList<>();
-        matchResult.add(getCurrentUser().equalsIgnoreCase(data.getName()));
-        matchResult.add(getProfileName().equalsIgnoreCase(data.getName()));
-        matchResult.add(getProfileEmail().equalsIgnoreCase(data.geteMail()));
-        matchResult.add(getProfilePhoneNumber().equalsIgnoreCase(data.getPhoneNumber()));
-        String modelBirthday = new SimpleDateFormat("dd/MM/YYYY").format(data.getBirthDate());
-        matchResult.add(getProfileBirthday().equals(modelBirthday));
-        return matchResult.stream().allMatch(p -> p);
-    }
-
     public void logout() {
         highlightClick(By.cssSelector("a[href=\"/personal/?logout=yes\"]"));
         waitForRenderedElementsToDisappear(By.cssSelector("a[href=\"/personal/?logout=yes\"]"));
     }
 
-    // region profile values getters
 
-    private String getCurrentUser() {
-        return highlightFind(By.cssSelector(".header__private")).getText();
+    public String getActiveProfileTitle() {
+        return highlightFind(By.cssSelector(".header__private .header__link")).getText();
     }
+
+
+    public RegistrationModel getSavedData() {
+        RegistrationModel data = new RegistrationModel();
+        data.setName(getProfileName());
+        data.seteMail(getProfileEmail());
+        data.setPhoneNumber(getProfilePhoneNumber());
+        data.setBirthDate(getProfileBirthday());
+        return data;
+    }
+    // region profile values getters
 
     private String getProfileName() {
         return highlightFind(By.cssSelector("input.js-input-name")).getAttribute("value");
@@ -54,8 +53,17 @@ public class ProfilePage extends BasePage {
         return highlightFind(By.cssSelector(".field_type_tel input")).getAttribute("value").replaceAll("\\W", "");
     }
 
-    private String getProfileBirthday() {
-        return highlightFind(By.cssSelector(".field input[name=FIELDS\\[PERSONAL_BIRTHDAY\\]]")).getAttribute("value");
+    private Date getProfileBirthday() {
+        String profileBirthday = highlightFind(By.cssSelector(".field input[name=FIELDS\\[PERSONAL_BIRTHDAY\\]]")).getAttribute("value");
+        Date profileBirthdayDate = null;
+        if (!profileBirthday.isEmpty()) {
+            try {
+                profileBirthdayDate = new SimpleDateFormat("d/MM/yyyy").parse(profileBirthday);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        return profileBirthdayDate;
     }
 
     // endregion

@@ -98,7 +98,7 @@ public class RegistrationExtension extends BasePage {
 
     private void fillBirthDate(Date birthDate) {
         if (birthDate != null) {
-            DateFormat dateFormat = new SimpleDateFormat("ddMMYYYY");
+            DateFormat dateFormat = new SimpleDateFormat("dMMyyyy");
             WebElement birthDateField = highlightFind(By.cssSelector(".js-inputmask-date"));
             birthDateField.sendKeys(dateFormat.format(birthDate));
         }

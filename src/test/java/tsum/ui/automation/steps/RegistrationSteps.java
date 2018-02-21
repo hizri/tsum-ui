@@ -3,10 +3,10 @@ package tsum.ui.automation.steps;
 import net.thucydides.core.annotations.Step;
 import tsum.ui.automation.basics.BaseSteps;
 import tsum.ui.automation.models.RegistrationModel;
-import tsum.ui.automation.pages.HomePage;
 import tsum.ui.automation.pages.ProfilePage;
 import tsum.ui.automation.pages.RegistrationPage;
 import tsum.ui.automation.pages.SignUpPopup;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RegistrationSteps extends BaseSteps {
@@ -23,7 +23,12 @@ public class RegistrationSteps extends BaseSteps {
 
     @Step
     public void check_saved_data_matches_profile(RegistrationModel data) {
-        assertThat(profilePage.matchModelData(data)).isTrue();
+        assertThat(profilePage.getActiveProfileTitle().equals(data.getName())).isTrue();
+        RegistrationModel savedData = profilePage.getSavedData();
+        assertThat(data.getName().equalsIgnoreCase(savedData.getName())).isTrue();
+        assertThat(data.geteMail().equalsIgnoreCase(savedData.geteMail())).isTrue();
+        assertThat(data.getPhoneNumber().equalsIgnoreCase(savedData.getPhoneNumber())).isTrue();
+        assertThat(data.getBirthDate() == savedData.getBirthDate()).isTrue();
     }
 
     @Step
